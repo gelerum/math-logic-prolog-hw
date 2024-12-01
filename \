@@ -35,6 +35,7 @@ matrix_column([A|As], N, [E|E1]) :-
     matrix_column(As, N, E1).
 
 
+
 generate_list(P, N, []) :-
     P >= N.
 generate_list(P, N, [P|Y]) :-
@@ -44,14 +45,14 @@ generate_list(P, N, [P|Y]) :-
 
 
 matrix_transpose([], []).
-matrix_transpose([R|Rs], AT) :-
-    bi_length(R, L), 
-    generate_list(0, L, S),
-    maplist(matrix_column, [R|Rs], S, AT).
+matrix_transpose(A, AT) :-
+    maplist(matrix_column, A, [0, 1, 2], AT).
 
 
 :- initialization(main).
 main :-
-    matrix_transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9], [4, 8, 9], [10, 11, 12]], R),
+    matrix_transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]], R),
     write(R), nl,
+    generate_list(0, 4, R1),
+    write(R1), nl,
     halt.
